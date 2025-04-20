@@ -1,6 +1,13 @@
 import { ImageResponse } from "next/og";
-import { getReleaseData } from "@/lib/markdown";
+import { getAllReleaseVersions, getReleaseData } from "@/lib/markdown";
 import { siteMetadata } from "@/constants/site-metadata";
+
+export const dynamic = "force-static";
+
+export async function generateStaticParams() {
+  const versions = getAllReleaseVersions();
+  return versions;
+}
 
 async function loadGoogleFont(font: string, text: string) {
   const url = `https://fonts.googleapis.com/css2?family=${font}:wght@700&text=${encodeURIComponent(
@@ -21,23 +28,23 @@ async function loadGoogleFont(font: string, text: string) {
   throw new Error("failed to load font data");
 }
 
-// OG画像のメタデータ
-export const alt = "My Next Starter - リリースノート";
-export const size = {
-  width: 1200,
-  height: 630,
-};
-export const contentType = "image/png";
-
-export default async function Image({
-  params,
-}: {
-  params: Promise<{ version: string }>;
-}) {
+export async function GET(
+  _: Request,
+  {
+    params,
+  }: {
+    params: Promise<{ version: string }>;
+  }
+) {
   const { version } = await params;
   // リリースデータを取得
   const releaseData = await getReleaseData(version);
   const { title } = releaseData;
+
+  const size = {
+    width: 1200,
+    height: 630,
+  };
 
   return new ImageResponse(
     (

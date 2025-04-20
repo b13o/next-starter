@@ -10,7 +10,7 @@ interface SiteMetadata {
 
 const SITE_URLS = {
   development: "http://localhost:3000",
-  production: "#", // 本番環境のURLを指定
+  production: "https://b13o.github.io", // 本番環境のURLを指定
   test: "http://localhost:3000",
 };
 

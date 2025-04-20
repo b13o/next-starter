@@ -2,6 +2,8 @@ import { MetadataRoute } from "next";
 import { getAllReleaseVersions } from "@/lib/markdown";
 import { siteMetadata } from "@/constants/site-metadata";
 
+export const dynamic = "force-static";
+
 // サイトのベースURL
 const baseUrl = siteMetadata.SITE_URL;
 

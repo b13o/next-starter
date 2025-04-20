@@ -26,6 +26,14 @@ export async function generateMetadata({
   return {
     title: `リリース ${version}`,
     description: releaseData.title,
+    openGraph: {
+      images: [
+        {
+          // next-starterは、公開するGitHubリポジトリのURLを指定します
+          url: `next-starter/releases/${version}/opengraph-image.png`,
+        },
+      ],
+    },
   };
 }
 
